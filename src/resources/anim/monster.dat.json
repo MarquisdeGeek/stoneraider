@@ -1,0 +1,116 @@
+{
+    "animation": [
+        {
+            "attributes": {}
+        },
+
+        {
+            "sequence": [
+                {
+                    "attributes": {
+                        "name": "move",
+                        "playback": "loop"
+                    }
+                },
+                {
+                    "frame": [
+                        {
+                            "attributes": {
+                                "region": "0",
+                                "time": "200",
+                                "units": "ms"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "frame": [
+                        {
+                            "attributes": {
+                                "region": "1",
+                                "time": "200",
+                                "units": "ms"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "frame": [
+                        {
+                            "attributes": {
+                                "region": "2",
+                                "time": "200",
+                                "units": "ms"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "frame": [
+                        {
+                            "attributes": {
+                                "region": "3",
+                                "time": "200",
+                                "units": "ms"
+                            }
+                        }
+                    ]
+                }
+            ]
+        },
+         {
+            "sequence": [
+                {
+                    "attributes": {
+                        "name": "die",
+                        "playback": "forward"
+                    }
+                },
+                {
+                    "frame": [
+                        {
+                            "attributes": {
+                                "region": "4",
+                                "time": "250",
+                                "units": "ms"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "frame": [
+                        {
+                            "attributes": {
+                                "region": "5",
+                                "time": "250",
+                                "units": "ms"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "frame": [
+                        {
+                            "attributes": {
+                                "region": "6",
+                                "time": "250",
+                                "units": "ms"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "frame": [
+                        {
+                            "attributes": {
+                                "region": "7",
+                                "time": "250",
+                                "units": "ms"
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+   ]
+}

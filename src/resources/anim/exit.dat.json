@@ -1,0 +1,63 @@
+{
+    "animation": [
+        {
+            "attributes": {}
+        },
+
+        {
+            "sequence": [
+                {
+                    "attributes": {
+                        "name": "normal",
+                        "playback": "forward"
+                    }
+                },
+                {
+                    "frame": [
+                        {
+                            "attributes": {
+                                "region": "0",
+                                "time": "100",
+                                "units": "ms"
+                            }
+                        }
+                    ]
+                }
+            ]
+        },
+
+        {
+            "sequence": [
+                {
+                    "attributes": {
+                        "name": "exit",
+                        "playback": "loop"
+                    }
+                },
+                {
+                    "frame": [
+                        {
+                            "attributes": {
+                                "region": "0",
+                                "time": "300",
+                                "units": "ms"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "frame": [
+                        {
+                            "attributes": {
+                                "region": "1",
+                                "time": "300",
+                                "units": "ms"
+                            }
+                        }
+                    ]
+                }
+
+            ]
+        }
+    ]
+}

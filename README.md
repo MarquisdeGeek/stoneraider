@@ -23,6 +23,8 @@ You can push rocks, provided there's only one of them, and that there's nothing 
 
 If you trap yourself into a corner, you can end a life with the '~' (tilde) key.
 
+You can also dig to the adjacent square, be it left, right, up or down, by holding down the shift key and pressing the appropriate arrow key. In this 'dig' mode, you will not move.
+
 
 ## Links
 
