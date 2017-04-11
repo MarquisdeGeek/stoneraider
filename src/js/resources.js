@@ -92,8 +92,10 @@ gResources.loadAssets = function() {
 
 	// Animations
 	gVars.animations.monster = sgx.graphics.AnimationManager.get().loadData("resources/anim/monster");
+	gVars.animations.alien = sgx.graphics.AnimationManager.get().loadData("resources/anim/alien");	
 	gVars.animations.player = sgx.graphics.AnimationManager.get().loadData("resources/anim/player");
 	gVars.animations.exit = sgx.graphics.AnimationManager.get().loadData("resources/anim/exit");
+	gVars.animations.slime = sgx.graphics.AnimationManager.get().loadData("resources/anim/slime");
 
 	gVars.textures.blank = sgx.graphics.TextureManager.get().registerScenarioTexture("resources/sprites/blank");
 	gVars.textures.diamond = sgx.graphics.TextureManager.get().registerScenarioTexture("resources/sprites/diamond");
@@ -104,8 +106,11 @@ gResources.loadAssets = function() {
 	gVars.textures.wall = sgx.graphics.TextureManager.get().registerScenarioTexture("resources/sprites/wall");
 	gVars.textures.monster = sgx.graphics.TextureManager.get().registerScenarioTexture("resources/sprites/monster");
 	gVars.textures.exit = sgx.graphics.TextureManager.get().registerScenarioTexture("resources/sprites/exit");
+	gVars.textures.alien = sgx.graphics.TextureManager.get().registerScenarioTexture("resources/sprites/alien");
+	gVars.textures.slime = sgx.graphics.TextureManager.get().registerScenarioTexture("resources/sprites/slime");
 
-	gVars.token.EXIT = '!';
+	gVars.token.EXIT = '$';
+	gVars.token.EXIT_HIDDEN = '!';
 	gVars.token.WALL = 'x';
 	gVars.token.EDGE = '#';
 	gVars.token.ROCK = 'o';
@@ -113,5 +118,7 @@ gResources.loadAssets = function() {
 	gVars.token.EARTH = '.';
 	gVars.token.SPACE = ' ';
 	gVars.token.DIAMOND = '*';
-	gVars.token.MONSTER = 'm';
+	gVars.token.MONSTER_SKULL = 'M';
+	gVars.token.MONSTER_ALIEN = 'A';
+	gVars.token.SLIME = 's';
 }

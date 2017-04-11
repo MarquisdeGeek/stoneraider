@@ -22,8 +22,9 @@ SR_DynamicManager.create = function(type, x, y) {
 		case gVars.token.PLAYER:
 		return new SR_Player(x, y);
 
-		case gVars.token.MONSTER:
-		return new SR_Monster(x, y);
+		case gVars.token.MONSTER_SKULL:
+		case gVars.token.MONSTER_ALIEN:
+		return new SR_Monster(x, y, type);
 
 		case gVars.token.ROCK:
 		return new SR_Rock(x, y);
@@ -34,6 +35,7 @@ SR_DynamicManager.create = function(type, x, y) {
 		case gVars.token.EDGE:
 		return new SR_Edge(x, y);
 
+		case gVars.token.EXIT_HIDDEN:
 		case gVars.token.EXIT:
 		return new SR_Exit(x, y);
 
@@ -45,6 +47,10 @@ SR_DynamicManager.create = function(type, x, y) {
 
 		case gVars.token.SPACE:
 		return new SR_Blank(x, y);
+
+		case gVars.token.SLIME:
+		return new SR_Slime(x, y);
+
 
 		default:
 		sgxTrace("No tile type:" + type);
@@ -64,14 +70,19 @@ var levelIndex;
 var diamonds;
 var m_fTimecum;
 //
+var diamondScore;
+var initialBonus;
+
 
 	(function ctor() {
 		newLevel(idx);
 	})();
 
 	function newLevel(index) {	
+		diamondScore = gLevels[index].points;
+		initialBonus = gLevels[index].bonus;
 
-		var map_data = gLevels[index];
+		var map_data = gLevels[index].map;
 		var dimensions = getLevelDimensions();
 
 		mapJSW = new Array();
@@ -99,6 +110,8 @@ var m_fTimecum;
 		}
 
 		m_fTimecum = 0;
+
+		diamonds = gLevels[index].diamonds;
 
 		levelIndex = index;
 	}
@@ -184,6 +197,32 @@ var m_fTimecum;
 		return collisionData;
 	}
 
+	function addDiamonds3x3(x, y) { 
+		for(var dy=-gVars.tilesize;dy<=gVars.tilesize;dy+=gVars.tilesize) {
+			for(var dx=-gVars.tilesize;dx<=gVars.tilesize;dx+=gVars.tilesize) {
+				var existing = getObjectAt(x+dx, y+dy);
+				if (!existing || existing.tile == gVars.token.SPACE || existing.tile == gVars.token.EARTH) {
+					var obj = SR_DynamicManager.create(gVars.token.DIAMOND, x+dx, y+dy);
+					addGameObject(obj, x+dx, y+dy);
+				}
+			}
+		}
+	}
+
+	function addSlimeNear(x, y) { 
+		for(var dy=-gVars.tilesize;dy<=gVars.tilesize;dy+=gVars.tilesize) {
+			for(var dx=-gVars.tilesize;dx<=gVars.tilesize;dx+=gVars.tilesize) {
+				var existing = getObjectAt(x+dx, y+dy);
+				if (!existing || existing.tile == gVars.token.SPACE || existing.tile == gVars.token.EARTH) {
+					var obj = SR_DynamicManager.create(gVars.token.SLIME, x+dx, y+dy);
+					addGameObject(obj, x+dx, y+dy);
+					return;
+				}
+			}
+		}
+	}
+
+
 	function addGameObject(srobj, x, y)		{ 
 		var index = getTileIndexOf(x, y);
 
@@ -260,12 +299,17 @@ var m_fTimecum;
 		draw: function(surface, viewportRect) 		{ return draw(surface, viewportRect); },
 		postDraw: function(surface, viewportRect)	{ return postDraw(surface, viewportRect); },
 
+		addDiamonds3x3: function(x,y)				{ return addDiamonds3x3(x, y); },
+		addSlimeNear: function(x,y)					{ return addSlimeNear(x, y); },
 		addGameObject: function(srobj, x, y)		{ return addGameObject(srobj, x, y); },
 		moveGameObject: function(srobj, x, y)		{ return moveGameObject(srobj, x, y); },
 		removeGameObject: function(srobj)			{ return removeGameObject(srobj); },
 		removeGameObjectAt: function(idx)			{ return removeGameObjectAt(idx); },
 
 		getDiamondCount: function() 				{ return getDiamondCount(); },
+		getDiamondScore: function()					{ return diamondScore; },
+		getInitialBonus: function()					{ return initialBonus; },
+
 		unlockExit: function() 						{ return unlockExit(); },
 		killObjectByRockAt: function(idx) 			{ return killObjectByRockAt(idx); },
 

@@ -89,7 +89,7 @@ function GamePlayer(uiData) {
 		playerHasExpired = false;
 
 		data.diamonds_left = level.getDiamondCount();
-		data.bonus = 100;
+		data.bonus = level.getInitialBonus();
 		data.diamonds_got = 0;
 
 		updateUI();
@@ -319,8 +319,8 @@ function GamePlayer(uiData) {
 				var collisionData = currentLevel.getCollisions(xpos, ypos, 0/*reason:todo*/);
 
 				for(var i=0;i<collisionData.diamondList.length;++i) {
-					data.diamonds_left--;
-					data.score += 10;
+					data.diamonds_left = sgxMax(data.diamonds_left-1, 0);
+					data.score += currentLevel.getDiamondScore();
 					data.diamonds_got++;
 
 					if (data.diamonds_left == 0) {

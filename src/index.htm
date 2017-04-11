@@ -1,63 +1,46 @@
 <!DOCTYPE html>
-
 <html>
 
-
-
 <head>
-
 	<title>Stone Raider II</title>
-
 	<link rel="shortcut icon" href="favicon.ico" />
-
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 
-
-
 	<script type="text/javascript">
-
 	  var _gaq = _gaq || [];
-
 	  _gaq.push(['_setAccount', 'UA-12127318-18']);
-
 	  _gaq.push(['_trackPageview']);
 
-
-
 	  (function() {
-
 	    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-
 	    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-
 	    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-
 	  })();
 
-
-
 	</script>
-
 </head>
 
-
-
 <body>
-
 	<script type="text/javascript" src="//sgxengine.com/code/lib/js/jquery/jquery-1.11.1.min.js"></script>
-
 	<script type="text/javascript" src="//sgxengine.com/code/jpjs/jquery.jplayer.min.js"></script>
 
 	<script type="text/javascript" src="//sgxengine.com/code/sgx/lib/statemachine-1.00.js"></script>
-	<script type="text/javascript" src="lang/en.js"></script>
+
 	<script type="text/javascript" src="thirdparty/fpsmeter.min.js"></script>
 
 
+	<!-- BUILD:ENVIRONMENT:START:local -->
+	<script type="text/javascript" src="sgx/sgx/bootstrap.js"></script>
+	<script type="text/javascript">
+	SGXSystem.include('sgx/sgx.js', function() {
+		startGame();
+	});
+	</script>
+	<script type="text/javascript" src="sgxplusplus.js"></script>
+	<!-- BUILD:ENVIRONMENT:END:local -->
+
 	<!-- These are included for local and dev builds -->
-	<script type="text/javascript" src="//sgxengine.com/code/sgx/sgx-3.1.14.min.js"></script>
-
-
-	<!-- ADD:ENVIRONMENT:sgx:debug -->
+	<!-- BUILD:ENVIRONMENT:START:dev -->
 	<script type="text/javascript" src="js/vars.js"></script>
 	<script type="text/javascript" src="js/resources.js"></script>
 	<script type="text/javascript" src="js/settings.js"></script>
@@ -72,40 +55,29 @@
 	<script type="text/javascript" src="js/sr_monster.js"></script>
 	<script type="text/javascript" src="js/sr_player.js"></script>
 	<script type="text/javascript" src="js/sr_statics.js"></script>
+	<script type="text/javascript" src="js/sr_slime.js"></script>
 	<script type="text/javascript" src="js/level.js"></script>
 	<script type="text/javascript" src="js/leveldata.js"></script>
 	<script type="text/javascript" src="js/player.js"></script>
 	<script type="text/javascript" src="js/style.js"></script>
+
 	<script type="text/javascript" src="js/gui.js"></script>
+	<!-- BUILD:ENVIRONMENT:END:dev -->
 
-
-	<script type="text/javascript">
-	$(document).ready(function() {
-		startGame();
-	});
-	</script>
+	<!-- ADD:ENVIRONMENT:sgx:debug -->
+	<!-- ADD:ENVIRONMENT:sgx:release -->
 
 
 
 	<link rel="stylesheet" type="text/css" href="css/main.css">
 
 	<canvas id="SGXCanvas" width="320" height="480">
-
 		This browser does not support the HTML5 Canvas.
-
 	</canvas>
-
-
 
 	<div id="loading_screen"><img id='loading_background' src="resources/loading/bg.jpg"><img id='loading_animation' src="resources/loading/anim.gif"><div id="loading_tracker"></div></div>
 
-
-
 	<div id="sgxAudio"></div>
 
-
-
 </body>
-
 </html>
-

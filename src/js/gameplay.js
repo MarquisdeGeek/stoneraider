@@ -196,7 +196,13 @@ var musicChannel;
 
 			surface.setFillColor(color);
 			surface.setFillTexture(gVars.textures.level_intro);
-			surface.fillRect();			
+			surface.fillRect();
+
+			
+			var levelNumber = "0" + (data.level+1);
+		    levelNumber = sgxSubstring(levelNumber, levelNumber.length - 2, 2);
+			surface.setFontColor(color);
+			surface.drawText(levelNumber, 288, 176);
 			break;
 
 		
@@ -375,8 +381,11 @@ var musicChannel;
 			break;
 			case GAME_IS_WAITING_FOR_NEXT_LEVEL:
 			if (sgx.input.Engine.get().mouseLeft.wasPressed() || sgx.input.Engine.get().isAnyKeyPressed()) {
-				//nextLevel();
-				changeState('mainmenu');
+				if (data.level+1 == gLevels.length) {
+					changeState('mainmenu');	
+				} else {
+					nextLevel();
+				}
 			}
 			break;
 

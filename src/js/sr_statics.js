@@ -122,16 +122,16 @@ function SR_Exit(x, y) {
 	this.gfx = gVars.textures.exit;
 	this.tile = gVars.token.EXIT;
 
-	this.isUnlocked = false;
+	this.isHidden = true;
 }
 Inheritance_Manager.extend(SR_Exit, SR_Base);
 
 SR_Exit.prototype.getCollisions = function(collisionData, rc) 	{ 
 	if (this.hasCollided(rc)) {
-		if (this.isUnlocked) {
-			collisionData.endlevel = true;
-		} else {
+		if (this.isHidden) {
 			collisionData.immovable = true;
+		} else {
+			collisionData.endlevel = true;
 		}
 		collisionData.isSpace = false;
 	}
@@ -139,9 +139,9 @@ SR_Exit.prototype.getCollisions = function(collisionData, rc) 	{
 
 SR_Exit.prototype.unlock = function(telaps)
 {
-	if (!this.isUnlocked) {
+	if (this.isHidden) {
 		this.anim.startSequence("exit");
-		this.isUnlocked = true;
+		this.isHidden = false;
 	}
 }
 

@@ -42,7 +42,6 @@ function startGame() {
 	}
 
 	writeLoadingProcess('loading_tracker', 5);	// MainSettings.loadingProgressSize
-	sgx.text.processTextData(gLanguageData);
 	
 	gResources.prepareFonts();
 	gResources.prepareAudio();

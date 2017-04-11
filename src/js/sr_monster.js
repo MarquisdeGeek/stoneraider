@@ -20,14 +20,21 @@ Play it at:
  * 
  * @constructor
  */
-SR_Monster = function(x, y) {
+SR_Monster = function(x, y, type) {
 	SR_Base.prototype.constructor.call(this, x, y);
 
-	this.gfx = gVars.textures.monster;
-	this.tile = gVars.token.MONSTER;
-
+	this.tile = gVars.token.MONSTER_SKULL;
+	this.type = type;
 	this.anim = sgx.graphics.AnimationManager.get().createState();
-	this.anim.setAnimationDataSet(gVars.animations.monster);
+
+	if (type == gVars.token.MONSTER_ALIEN) {
+		this.gfx = gVars.textures.alien;
+		this.anim.setAnimationDataSet(gVars.animations.alien );
+	} else {
+		this.gfx = gVars.textures.monster;
+		this.anim.setAnimationDataSet(gVars.animations.monster);
+	}
+
 	this.anim.startSequence("move");
 
 	this.movement_count = 0;
@@ -114,5 +121,10 @@ SR_Monster.prototype.killByRock = function() {
 	if (!this.isDying) {
 		this.setAnim("die");
 		this.isDying = true;
+
+		if (this.type == gVars.token.MONSTER_ALIEN) {	// or SKULL
+			gVars.currentLevel.removeGameObject(this);
+			gVars.currentLevel.addDiamonds3x3(this.x, this.y);
+		}
 	}
 }

@@ -12,6 +12,8 @@ My intention is that the code is simple enough to allow anyone interested to und
 
 Currently, it only supports 1 level, and uses the graphics and sounds from the original, but hopefully an artist will donate some time to provide a completely new look to the game. At which point, I'll probably call it Stone Raider III!
 
+Note: The new levels haven't been properly tested, so it _might_ be impossible to complete them.
+
 
 ## How to play
 

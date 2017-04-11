@@ -19,7 +19,7 @@ Play it at:
 function populateSettings(settings) {
 	var cmd = new CCommandLine();
 
-	settings.setOption('main.startstate', 'mainmenu');	// usually titles or mainmenu
+	settings.setOption('main.startstate', 'titles');	// usually titles or mainmenu
 	settings.setOption('main.fps', cmd.getOptionAsBool(null, 'main.fps', false));
 	settings.setOption('game.winch', false);
 

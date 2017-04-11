@@ -1,0 +1,40 @@
+{
+    "animation": [
+        {
+            "attributes": {}
+        },
+
+        {
+            "sequence": [
+                {
+                    "attributes": {
+                        "name": "pulse",
+                        "playback": "loop"
+                    }
+                },
+                {
+                    "frame": [
+                        {
+                            "attributes": {
+                                "region": "0",
+                                "time": "200",
+                                "units": "ms"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "frame": [
+                        {
+                            "attributes": {
+                                "region": "1",
+                                "time": "200",
+                                "units": "ms"
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+   ]
+}
