@@ -58,10 +58,61 @@ var audioGroups = {
 
 gResources.prepareFonts = function() {
 
-	sgx.graphics.FontManager.get().registerFont('prose', null, new sgx.graphics.FontParameters(sgx.graphics.FontParameters.eFontTypeNatural, 12, 'Arial'));
+	sgx.graphics.FontManager.get().registerFont('std', null, new sgx.graphics.FontParameters(sgx.graphics.FontParameters.eFontTypeNatural, 12, 'Arial'));
 	sgx.graphics.FontManager.get().registerFont('ui', 'resources/fonts/std');
 
-	sgx.gui.Engine.get().setDefaultFont('prose');	// the default is a system font and therefore will contain all the letters
+	gResources.createStoneRaiderFont();
+
+	sgx.gui.Engine.get().setDefaultFont('std');	// the default is a system font and therefore will contain all the letters
+}
+
+gResources.createStoneRaiderFont = function() {
+	var param = { m_iFontSize:8, m_iFontType: CSGXFontParams.eFontTypeMultipleTexture };
+	var fnt = sgx.graphics.FontManager.get().registerFont('prose', "", param);
+
+	for(var i=0;i<96;++i) {
+		fnt.textureList[sgxToCharacter(i+32)] = gResources.createtexture(8, 8, fontdata, i*8);
+	}
+
+	// set lower case to match upper case
+	for(var i=0;i<26;++i) {
+		fnt.textureList[sgxToCharacter(i+97)] = fnt.textureList[sgxToCharacter(i+65)];	
+	}
+
+	return fnt;
+}
+
+gResources.createtexture = function(width, height, data, offset) {
+	var texture = sgx.graphics.TextureManager.get().create("", width, height);
+	var imageData = [];
+	texture.lock(imageData);
+	var bitmap = imageData.pBitmap_;
+
+	var bit = 0;
+	var shift = 7;
+	var xpos = 0;
+	var pi = 0;
+
+	var idx = offset - 1;
+	for(var i=0;i<width*height;++i) {
+		bit >>= 1;
+		if (bit == 0) {
+			bit = 0x80;
+			++idx;
+		}
+
+		var isset = (data[idx] & bit) ? 1 : 0;
+
+		bitmap[pi + 0] = bitmap[pi + 1] = bitmap[pi + 2] = bitmap[pi + 3] = isset?0xff:0;
+		pi += 4;
+	}
+
+	texture.unlock(imageData);
+
+	texture.clearRegions();
+	texture.addPixelRegion(0,0,width,height);
+
+	return texture;
 }
 
 gResources.prepareAudio = function() {

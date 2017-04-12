@@ -125,6 +125,7 @@ SR_Monster.prototype.killByRock = function() {
 		if (this.type == gVars.token.MONSTER_ALIEN) {	// or SKULL
 			gVars.currentLevel.removeGameObject(this);
 			gVars.currentLevel.addDiamonds3x3(this.x, this.y);
+			sgx.audio.Engine.get().playSound("gotdiamond");
 		}
 	}
 }

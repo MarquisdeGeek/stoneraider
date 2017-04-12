@@ -32,7 +32,6 @@ var pageTurnTimecum;
 var designInfo;
 var interfaceList = [];
 var animStatePlayer;
-var animStateHalite;
 var overlayEffect;
 
 	(function ctor() {
@@ -40,9 +39,6 @@ var overlayEffect;
 
 		animStatePlayer = sgx.graphics.AnimationManager.get().createState();
 		animStatePlayer.setAnimationDataSet(gVars.animations.player);
-
-		animStateHalite = sgx.graphics.AnimationManager.get().createState();
-		animStateHalite.setAnimationDataSet(gVars.animations.halite);
 
 		designInfo = sgxutils.gui.DesignManager.load("resources/instructions/ui", function(design, success) {
 			prepareInterface();
@@ -77,7 +73,6 @@ var overlayEffect;
 		page = 0; 
 		pageTurnDirection = 0;
 
-		animStateHalite.startSequence("sparkle"); 
 		sgx.gui.Engine.get().setRootWidget(interfaceList[0]);
 
 		sgx.audio.Engine.get().playSound("instructions");
@@ -160,6 +155,8 @@ var overlayEffect;
 
 		cell = animStatePlayer && animStatePlayer.getCurrentCell();
 
+		//var prev_font = surface.setCurrentFont('sr2');
+
 		switch(pageTurnDirection) {
 			case 0:
 			x = 0;
@@ -202,22 +199,15 @@ var overlayEffect;
 			surface.fillPoint(x, 100 + playerHeight/2);
 			break;		
 		}
-
-		// This is "something animating"
-		if (page === 0 && pageTurnDirection === 0) {
-			cell = animStateHalite && animStateHalite.getCurrentCell();
-			surface.setFillTexture(gVars.textures.halite, cell);
-			surface.fillPoint(176 + x, 366);
-		}
 		//
-		overlayEffect.draw(surface);	
+		//surface.setCurrentFont(prev_font);
+		//
+		overlayEffect.draw(surface);
 	}
 	
 	function update(surface, telaps) {
 
 		overlayEffect.update(surface, telaps);
-
-		animStateHalite.update(telaps);
 
 		switch(pageTurnDirection) {
 			case -1: // back

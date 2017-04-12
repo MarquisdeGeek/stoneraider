@@ -18,8 +18,9 @@ Play it at:
 
 function populateSettings(settings) {
 	var cmd = new CCommandLine();
+	var skip_title = cmd.getOptionAsBool(null, "skip", false);
 
-	settings.setOption('main.startstate', 'titles');	// usually titles or mainmenu
+	settings.setOption('main.startstate', skip_title?'mainmenu':'titles');	// usually titles or mainmenu
 	settings.setOption('main.fps', cmd.getOptionAsBool(null, 'main.fps', false));
 	settings.setOption('game.winch', false);
 

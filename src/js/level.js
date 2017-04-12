@@ -88,8 +88,6 @@ var initialBonus;
 		mapJSW = new Array();
 		mapIndexed = new Array();
 
-		diamonds = 0;
-
 		for(var y=0;y<dimensions.height;++y) {
 			for(var x=0;x<dimensions.width;++x) {
 				var idx = x + y*dimensions.width;
@@ -101,9 +99,6 @@ var initialBonus;
 				switch(obj.tile) {
 					case gVars.token.PLAYER:
 					gVars.playerData.setSRObject(obj);
-					break;
-					case gVars.token.DIAMOND:
-					++diamonds;
 					break;
 				}
 			}

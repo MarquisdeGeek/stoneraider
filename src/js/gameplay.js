@@ -114,7 +114,10 @@ var musicChannel;
 	})();
 
 	function startGame(surface) {
-		data = {level: 0};
+		var argv = new CCommandLine();
+
+		data = {};
+		data.level = sgxAtoi(argv.getOption(null, "stone", 0));
 
 		playerData.startGame(data);
 
