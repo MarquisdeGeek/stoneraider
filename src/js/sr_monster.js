@@ -39,6 +39,7 @@ SR_Monster = function(x, y, type) {
 
 	this.movement_count = 0;
 	this.speed = gVars.monsterBaseSpeed;
+	this.last_dir = 0;		// slightly erroneous, but it saves conflueted logic later
 
 	this.isDying = false;
 }
@@ -49,6 +50,14 @@ SR_Monster.prototype.getCollisions = function(collisionData, rc) 	{
 		collisionData.monsterList.push(this);
 		collisionData.isSpace = false;
 	}
+}
+
+SR_Monster.prototype.canIMoveBy = function(dx, dy)
+{
+	var nx = this.x + gVars.tilesize * dx;
+	var ny = this.y + gVars.tilesize * dy;
+
+	return this.canIMoveTo(nx, ny);
 }
 
 SR_Monster.prototype.canIMoveTo = function(x, y)
@@ -80,26 +89,41 @@ SR_Monster.prototype.update = function(telaps)
 	if (++this.movement_count == this.speed) {
 		this.movement_count = 0;
 
-		// V1. Random monster movement. @todo AI to chase player
-		var options = new Array();
+		// V2. Better monster movement. @todo AI to chase player
+		var options = [ [-1,0], [0,-1], [1,0], [0,1] ];
+		var available = [];
 
-		// Collate all possible moves
-		if (this.canIMoveTo(this.x - gVars.tilesize, this.y)) {
-			options.push([-1,0]);
+		for(var i=0;i<4;++i) {
+			available[i] = this.canIMoveBy(options[i][0], options[i][1]);
 		}
-		if (this.canIMoveTo(this.x + gVars.tilesize, this.y)) {
-			options.push([1,0]);
+
+		var move_option;
+		var preferred_dir;
+		if (this.type == gVars.token.MONSTER_ALIEN) {
+			preferred_dir = (this.last_dir + 1) & 3;	// right
+		} else {
+			preferred_dir = (this.last_dir - 1) & 3;	// left
 		}
-		if (this.canIMoveTo(this.x, this.y - gVars.tilesize)) {
-			options.push([0,-1]);
-		}
-		if (this.canIMoveTo(this.x, this.y + gVars.tilesize)) {
-			options.push([0,1]);
+
+		// Keep going in the same direction, most of the time
+		if (available[this.last_dir] && sgxRand() > 0.2) {
+			move_option = this.last_dir;
+		// Turn in this monster prefered direction
+		} else if (available[preferred_dir] && sgxRand() > 0.2) {
+			move_option = preferred_dir;
+		// Pick something random
+		} else {
+			for(var attempt=0;attempt<4;++attempt) {
+				var try_in_dir = sgxRand(0, options.length);
+				if (available[try_in_dir]) {
+					move_option = try_in_dir;
+					break;
+				}
+			}
 		}
 
 		// Now pick one...
-		if (options.length) {
-			var move_option = sgxRand(0, options.length);
+		if (options.length && move_option !== undefined) {
 			var nx = this.x + gVars.tilesize * options[move_option][0];
 			var ny = this.y + gVars.tilesize * options[move_option][1];
 			var newObject = gVars.currentLevel.getObjectAt(nx, ny);
@@ -110,6 +134,8 @@ SR_Monster.prototype.update = function(telaps)
 					newObject.killByMonster();
 				}
 			}
+
+			this.last_dir = move_option;
 			
 			gVars.currentLevel.moveGameObject(this, nx, ny);	
 		}
